@@ -1,5 +1,4 @@
 import json
-
 class PersonalLibraryManager:
     def __init__(self, filename="library.json"):
         self.filename = filename
@@ -20,15 +19,15 @@ class PersonalLibraryManager:
 
     def add_book(self):
         """Add a new book to the library."""
-        title = input("Enter book title: ")
-        author = input("Enter author: ")
+        title = input("📖 Enter book title: ")
+        author = input("✍️ Enter author: ")
         try:
-            year = int(input("Enter publication year: "))
+            year = int(input("📅 Enter publication year: "))
         except ValueError:
-            print("Invalid year format. Please enter a number.")
+            print("❌ Invalid year format. Please enter a number.")
             return
-        genre = input("Enter genre: ")
-        read_status = input("Have you read this book? (yes/no): ").strip().lower() == "yes"
+        genre = input("🎭 Enter genre: ")
+        read_status = input("✅ Have you read this book? (yes/no): ").strip().lower() == "yes"
         
         book = {
             "title": title,
@@ -39,37 +38,37 @@ class PersonalLibraryManager:
         }
         self.library.append(book)
         self.save_library()
-        print(f"\nBook '{title}' added successfully!\n")
+        print(f"\n📚 Book '{title}' added successfully! 🎉\n")
 
     def remove_book(self):
         """Remove a book from the library by title."""
-        title = input("Enter the title of the book to remove: ")
+        title = input("🗑️ Enter the title of the book to remove: ")
         for book in self.library:
             if book["title"].lower() == title.lower():
                 self.library.remove(book)
                 self.save_library()
-                print(f"\nBook '{title}' removed successfully!\n")
+                print(f"\n✅ Book '{title}' removed successfully!\n")
                 return
-        print("Book not found.\n")
+        print("❌ Book not found.\n")
 
     def search_book(self):
         """Search for books by title or author."""
-        query = input("Enter book title or author to search: ").lower()
+        query = input("🔍 Enter book title or author to search: ").lower()
         results = [book for book in self.library if query in book["title"].lower() or query in book["author"].lower()]
         
         if results:
-            print("\nSearch Results:")
+            print("\n🔎 Search Results:")
             for book in results:
                 self.display_book(book)
         else:
-            print("No matching books found.\n")
+            print("❌ No matching books found.\n")
 
     def display_books(self):
         """Display all books in the library."""
         if not self.library:
-            print("\nNo books in the library.\n")
+            print("\n📭 No books in the library.\n")
             return
-        print("\nLibrary Collection:")
+        print("\n📚 Library Collection:")
         for book in self.library:
             self.display_book(book)
 
@@ -77,31 +76,31 @@ class PersonalLibraryManager:
         """Display statistics about the library."""
         total_books = len(self.library)
         if total_books == 0:
-            print("\nNo books in the library.\n")
+            print("\n📭 No books in the library.\n")
             return
         read_books = sum(1 for book in self.library if book["read"])
         read_percentage = (read_books / total_books) * 100
-        print(f"\nTotal books: {total_books}")
-        print(f"Books read: {read_books} ({read_percentage:.2f}% completed)\n")
+        print(f"\n📊 Total books: {total_books}")
+        print(f"📖 Books read: {read_books} ({read_percentage:.2f}% completed)\n")
 
     @staticmethod
     def display_book(book):
         """Helper function to display book details."""
-        read_status = "Read" if book["read"] else "Unread"
-        print(f"- {book['title']} by {book['author']} ({book['year']}) - {book['genre']} [{read_status}]")
+        read_status = "✅ Read" if book["read"] else "❌ Unread"
+        print(f"- 📖 {book['title']} by {book['author']} ({book['year']}) - 🎭 {book['genre']} [{read_status}]")
 
     def run(self):
         """Main menu loop for the Personal Library Manager."""
         while True:
-            print("\nPersonal Library Manager")
-            print("1. Add a book")
-            print("2. Remove a book")
-            print("3. Search for a book")
-            print("4. Display all books")
-            print("5. Display statistics")
-            print("6. Exit")
+            print("\n📚 Personal Library Manager")
+            print("1️⃣  Add a book")
+            print("2️⃣  Remove a book")
+            print("3️⃣  Search for a book")
+            print("4️⃣  Display all books")
+            print("5️⃣  Display statistics")
+            print("6️⃣  Exit")
             
-            choice = input("Enter your choice (1-6): ")
+            choice = input("👉 Enter your choice (1-6): ")
             if choice == "1":
                 self.add_book()
             elif choice == "2":
@@ -113,10 +112,10 @@ class PersonalLibraryManager:
             elif choice == "5":
                 self.display_statistics()
             elif choice == "6":
-                print("Exiting... Goodbye!")
+                print("👋 Exiting... Goodbye!")
                 break
             else:
-                print("Invalid choice. Please enter a number between 1-6.")
+                print("❌ Invalid choice. Please enter a number between 1-6.")
 
 if __name__ == "__main__":
     manager = PersonalLibraryManager()
